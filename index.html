@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury iPhones | Exclusive Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 30px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: #128C7E;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(to right, #f9f9f9, #ffffff);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .highlight {
+            color: #128C7E;
+            font-weight: 700;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .product-image {
+            height: 300px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .product-image img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        /* Options */
+        .options-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .colors-container, .storage-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .color-option, .storage-option {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .color-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .color-option:hover, .storage-option:hover {
+            border-color: #128C7E;
+            background-color: #f5fffe;
+        }
+        
+        .color-option.selected, .storage-option.selected {
+            border-color: #128C7E;
+            background-color: #128C7E;
+            color: white;
+        }
+        
+        .color-option.out-of-stock, .storage-option.out-of-stock {
+            opacity: 0.4;
+            cursor: not-allowed;
+            position: relative;
+        }
+        
+        .color-option.out-of-stock:hover, .storage-option.out-of-stock:hover {
+            border-color: #ddd;
+            background-color: transparent;
+        }
+        
+        .out-of-stock-label {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background-color: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .whatsapp-button:hover {
+            background-color: #0d7a6d;
+        }
+        
+        .whatsapp-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .contact-description {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 16px;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #128C7E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .contact-method h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .contact-method p {
+            color: #666;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+        
+        /* Selection Summary */
+        .selection-summary {
+            background-color: #f5fffe;
+            border: 1px solid #128C7E;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .selection-summary.show {
+            display: block;
+        }
+        
+        .summary-item {
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            font-weight: 600;
+            color: #128C7E;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-apple logo-icon"></i>
+                    <div>
+                        <span>LUXURY iPHONES</span>
+                        <div class="tagline">Exclusive Collection • WhatsApp Ordering</div>
+                    </div>
+                </div>
+                <div class="header-contact">
+                    <div style="font-weight: 600; color: #128C7E;">Exclusive WhatsApp Sales</div>
+                    <div style="font-size: 0.9rem; color: #666;">Confirm & Order via WhatsApp</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Luxury <span class="highlight">iPhone</span> Collection</h1>
+            <p>Discover our exclusive range of premium iPhones. Each device is carefully selected for quality and performance. Place your order through our WhatsApp admin for a seamless purchasing experience.</p>
+            <div style="margin-top: 40px; background-color: #f5fffe; padding: 20px; border-radius: 12px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h3 style="margin-bottom: 10px; color: #128C7E;">How to Order</h3>
+                <ol style="text-align: left; margin-left: 20px; color: #333;">
+                    <li>Select your preferred iPhone model, color, and storage</li>
+                    <li>Click "Confirm via WhatsApp" to connect with our admin</li>
+                    <li>Confirm availability and finalize your order</li>
+                    <li>Make payment as instructed by admin</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Available Models</h2>
+            
+            <div class="products-grid">
+                <!-- iPhone 15 Pro -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="iPhone 15 Pro">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 15 Pro</h3>
+                        <div class="product-price">From $999</div>
+                        
+                        <div class="options-title">Available Colors:</div>
+                        <div class="colors-container">
+                            <div class="color-option selected" data-color="Natural Titanium" data-hex="#8A8A8A">
+                                <div class="color-dot" style="background-color: #8A8A8A;"></div>
+                                <span>Natural Titanium</span>
+                            </div>
+                            <div class="color-option" data-color="Blue Titanium" data-hex="#4E6B8A">
+                                <div class="color-dot" style="background-color: #4E6B8A;"></div>
+                                <span>Blue Titanium</span>
+                            </div>
+                            <div class="color-option" data-color="White Titanium" data-hex="#E8E8E8">
+                                <div class="color-dot" style="background-color: #E8E8E8;"></div>
+                                <span>White Titanium</span>
+                            </div>
+                            <div class="color-option out-of-stock" data-color="Black Titanium" data-hex="#1A1A1A">
+                                <div class="color-dot" style="background-color: #1A1A1A;"></div>
+                                <span>Black Titanium</span>
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                        </div>
+                        
+                        <div class="options-title">Storage Options:</div>
+                        <div class="storage-container">
+                            <div class="storage-option selected" data-capacity="128GB" data-price="$999">128GB - $999</div>
+                            <div class="storage-option" data-capacity="256GB" data-price="$1099">256GB - $1099</div>
+                            <div class="storage-option" data-capacity="512GB" data-price="$1299">512GB - $1299</div>
+                            <div class="storage-option out-of-stock" data-capacity="1TB" data-price="$1499">
+                                1TB - $1499
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                        </div>
+                        
+                        <div class="selection-summary" id="summary-iphone15pro">
+                            <div class="summary-item"><span class="summary-label">Selected:</span> iPhone 15 Pro</div>
+                            <div class="summary-item"><span class="summary-label">Color:</span> Natural Titanium</div>
+                            <div class="summary-item"><span class="summary-label">Storage:</span> 128GB</div>
+                            <div class="summary-item"><span class="summary-label">Price:</span> $999</div>
+                        </div>
+                        
+                        <button class="whatsapp-button" data-product="iPhone 15 Pro" data-color="Natural Titanium" data-storage="128GB" data-price="$999">
+                            <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- iPhone 14 Pro -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1664478546384-d57ffe74a78c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="iPhone 14 Pro">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 14 Pro</h3>
+                        <div class="product-price">From $899</div>
+                        
+                        <div class="options-title">Available Colors:</div>
+                        <div class="colors-container">
+                            <div class="color-option selected" data-color="Deep Purple" data-hex="#5D4A66">
+                                <div class="color-dot" style="background-color: #5D4A66;"></div>
+                                <span>Deep Purple</span>
+                            </div>
+                            <div class="color-option" data-color="Gold" data-hex="#F5E6C8">
+                                <div class="color-dot" style="background-color: #F5E6C8;"></div>
+                                <span>Gold</span>
+                            </div>
+                            <div class="color-option out-of-stock" data-color="Silver" data-hex="#F0F0F0">
+                                <div class="color-dot" style="background-color: #F0F0F0;"></div>
+                                <span>Silver</span>
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                            <div class="color-option" data-color="Space Black" data-hex="#2C2C2C">
+                                <div class="color-dot" style="background-color: #2C2C2C;"></div>
+                                <span>Space Black</span>
+                            </div>
+                        </div>
+                        
+                        <div class="options-title">Storage Options:</div>
+                        <div class="storage-container">
+                            <div class="storage-option selected" data-capacity="128GB" data-price="$899">128GB - $899</div>
+                            <div class="storage-option" data-capacity="256GB" data-price="$999">256GB - $999</div>
+                            <div class="storage-option" data-capacity="512GB" data-price="$1199">512GB - $1199</div>
+                        </div>
+                        
+                        <div class="selection-summary" id="summary-iphone14pro">
+                            <div class="summary-item"><span class="summary-label">Selected:</span> iPhone 14 Pro</div>
+                            <div class="summary-item"><span class="summary-label">Color:</span> Deep Purple</div>
+                            <div class="summary-item"><span class="summary-label">Storage:</span> 128GB</div>
+                            <div class="summary-item"><span class="summary-label">Price:</span> $899</div>
+                        </div>
+                        
+                        <button class="whatsapp-button" data-product="iPhone 14 Pro" data-color="Deep Purple" data-storage="128GB" data-price="$899">
+                            <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                                <!-- iPhone 14 Pro -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1664478546384-d57ffe74a78c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="iPhone 14 Pro">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 14 Pro</h3>
+                        <div class="product-price">From $899</div>
+                        
+                        <div class="options-title">Available Colors:</div>
+                        <div class="colors-container">
+                            <div class="color-option selected" data-color="Deep Purple" data-hex="#5D4A66">
+                                <div class="color-dot" style="background-color: #5D4A66;"></div>
+                                <span>Deep Purple</span>
+                            </div>
+                            <div class="color-option" data-color="Gold" data-hex="#F5E6C8">
+                                <div class="color-dot" style="background-color: #F5E6C8;"></div>
+                                <span>Gold</span>
+                            </div>
+                            <div class="color-option out-of-stock" data-color="Silver" data-hex="#F0F0F0">
+                                <div class="color-dot" style="background-color: #F0F0F0;"></div>
+                                <span>Silver</span>
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                            <div class="color-option" data-color="Space Black" data-hex="#2C2C2C">
+                                <div class="color-dot" style="background-color: #2C2C2C;"></div>
+                                <span>Space Black</span>
+                            </div>
+                        </div>
+                        
+                        <div class="options-title">Storage Options:</div>
+                        <div class="storage-container">
+                            <div class="storage-option selected" data-capacity="128GB" data-price="$899">128GB - $899</div>
+                            <div class="storage-option" data-capacity="256GB" data-price="$999">256GB - $999</div>
+                            <div class="storage-option" data-capacity="512GB" data-price="$1199">512GB - $1199</div>
+                        </div>
+                        
+                        <div class="selection-summary" id="summary-iphone14pro">
+                            <div class="summary-item"><span class="summary-label">Selected:</span> iPhone 14 Pro</div>
+                            <div class="summary-item"><span class="summary-label">Color:</span> Deep Purple</div>
+                            <div class="summary-item"><span class="summary-label">Storage:</span> 128GB</div>
+                            <div class="summary-item"><span class="summary-label">Price:</span> $899</div>
+                        </div>
+                        
+                        <button class="whatsapp-button" data-product="iPhone 14 Pro" data-color="Deep Purple" data-storage="128GB" data-price="$899">
+                            <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                                <!-- iPhone 14 Pro -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1664478546384-d57ffe74a78c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="iPhone 14 Pro">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 14 Pro</h3>
+                        <div class="product-price">From $899</div>
+                        
+                        <div class="options-title">Available Colors:</div>
+                        <div class="colors-container">
+                            <div class="color-option selected" data-color="Deep Purple" data-hex="#5D4A66">
+                                <div class="color-dot" style="background-color: #5D4A66;"></div>
+                                <span>Deep Purple</span>
+                            </div>
+                            <div class="color-option" data-color="Gold" data-hex="#F5E6C8">
+                                <div class="color-dot" style="background-color: #F5E6C8;"></div>
+                                <span>Gold</span>
+                            </div>
+                            <div class="color-option out-of-stock" data-color="Silver" data-hex="#F0F0F0">
+                                <div class="color-dot" style="background-color: #F0F0F0;"></div>
+                                <span>Silver</span>
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                            <div class="color-option" data-color="Space Black" data-hex="#2C2C2C">
+                                <div class="color-dot" style="background-color: #2C2C2C;"></div>
+                                <span>Space Black</span>
+                            </div>
+                        </div>
+                        
+                        <div class="options-title">Storage Options:</div>
+                        <div class="storage-container">
+                            <div class="storage-option selected" data-capacity="128GB" data-price="$899">128GB - $899</div>
+                            <div class="storage-option" data-capacity="256GB" data-price="$999">256GB - $999</div>
+                            <div class="storage-option" data-capacity="512GB" data-price="$1199">512GB - $1199</div>
+                        </div>
+                        
+                        <div class="selection-summary" id="summary-iphone14pro">
+                            <div class="summary-item"><span class="summary-label">Selected:</span> iPhone 14 Pro</div>
+                            <div class="summary-item"><span class="summary-label">Color:</span> Deep Purple</div>
+                            <div class="summary-item"><span class="summary-label">Storage:</span> 128GB</div>
+                            <div class="summary-item"><span class="summary-label">Price:</span> $899</div>
+                        </div>
+                        
+                        <button class="whatsapp-button" data-product="iPhone 14 Pro" data-color="Deep Purple" data-storage="128GB" data-price="$899">
+                            <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- iPhone 13 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1632661674596-df8be070a6c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="iPhone 13">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 13</h3>
+                        <div class="product-price">From $699</div>
+                        
+                        <div class="options-title">Available Colors:</div>
+                        <div class="colors-container">
+                            <div class="color-option selected" data-color="Pink" data-hex="#FFB6C1">
+                                <div class="color-dot" style="background-color: #FFB6C1;"></div>
+                                <span>Pink</span>
+                            </div>
+                            <div class="color-option" data-color="Blue" data-hex="#ADD8E6">
+                                <div class="color-dot" style="background-color: #ADD8E6;"></div>
+                                <span>Blue</span>
+                            </div>
+                            <div class="color-option" data-color="Midnight" data-hex="#191970">
+                                <div class="color-dot" style="background-color: #191970;"></div>
+                                <span>Midnight</span>
+                            </div>
+                            <div class="color-option out-of-stock" data-color="Starlight" data-hex="#F5F5DC">
+                                <div class="color-dot" style="background-color: #F5F5DC;"></div>
+                                <span>Starlight</span>
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                        </div>
+                        
+                        <div class="options-title">Storage Options:</div>
+                        <div class="storage-container">
+                            <div class="storage-option selected" data-capacity="128GB" data-price="$699">128GB - $699</div>
+                            <div class="storage-option" data-capacity="256GB" data-price="$799">256GB - $799</div>
+                            <div class="storage-option out-of-stock" data-capacity="512GB" data-price="$999">
+                                512GB - $999
+                                <div class="out-of-stock-label">Out of stock</div>
+                            </div>
+                        </div>
+                        
+                        <div class="selection-summary" id="summary-iphone13">
+                            <div class="summary-item"><span class="summary-label">Selected:</span> iPhone 13</div>
+                            <div class="summary-item"><span class="summary-label">Color:</span> Pink</div>
+                            <div class="summary-item"><span class="summary-label">Storage:</span> 128GB</div>
+                            <div class="summary-item"><span class="summary-label">Price:</span> $699</div>
+                        </div>
+                        
+                        <button class="whatsapp-button" data-product="iPhone 13" data-color="Pink" data-storage="128GB" data-price="$699">
+                            <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <h2 class="contact-title">Contact Us</h2>
+                <p class="contact-description">Our dedicated WhatsApp admin is available to assist with product inquiries, availability confirmation, and secure ordering. All orders are processed exclusively through WhatsApp for personalized service.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h4>WhatsApp Sales</h4>
+                        <p>Primary ordering channel</p>
+                        <p style="font-weight: 600; color: #128C7E; margin-top: 5px;">+1 (555) 123-4567</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <h4>Business Hours</h4>
+                        <p>Mon-Fri: 9AM - 8PM EST</p>
+                        <p>Sat-Sun: 10AM - 6PM EST</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <h4>Email Support</h4>
+                        <p>For general inquiries only</p>
+                        <p style="font-weight: 600; color: #128C7E; margin-top: 5px;">support@luxuryiphones.com</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 50px; background-color: white; padding: 25px; border-radius: 16px; max-width: 600px; margin-left: auto; margin-right: auto; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);">
+                    <h3 style="margin-bottom: 15px; color: #128C7E;">Ordering Process</h3>
+                    <p style="color: #333; margin-bottom: 15px;">All orders require confirmation via WhatsApp due to limited stock availability. Our admin will verify stock, provide payment instructions, and arrange shipping.</p>
+                    <p style="color: #333; font-weight: 600;">Typical response time: Under 15 minutes during business hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">LUXURY iPHONES</div>
+            <p class="copyright">© 2023 Luxury iPhones. All rights reserved. Apple, iPhone, and iPod touch are trademarks of Apple Inc.</p>
+            <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">All orders are processed exclusively through WhatsApp admin confirmation.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle color selection
+            const colorOptions = document.querySelectorAll('.color-option:not(.out-of-stock)');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const parentCard = this.closest('.product-card');
+                    const colorOptionsInCard = parentCard.querySelectorAll('.color-option');
+                    
+                    // Remove selected class from all color options in this card
+                    colorOptionsInCard.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update WhatsApp button data
+                    const whatsappButton = parentCard.querySelector('.whatsapp-button');
+                    const selectedColor = this.getAttribute('data-color');
+                    whatsappButton.setAttribute('data-color', selectedColor);
+                    
+                    // Update selection summary
+                    updateSelectionSummary(parentCard);
+                });
+            });
+            
+            // Handle storage selection
+            const storageOptions = document.querySelectorAll('.storage-option:not(.out-of-stock)');
+            storageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const parentCard = this.closest('.product-card');
+                    const storageOptionsInCard = parentCard.querySelectorAll('.storage-option');
+                    
+                    // Remove selected class from all storage options in this card
+                    storageOptionsInCard.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update WhatsApp button data and product price
+                    const whatsappButton = parentCard.querySelector('.whatsapp-button');
+                    const selectedStorage = this.getAttribute('data-capacity');
+                    const selectedPrice = this.getAttribute('data-price');
+                    
+                    whatsappButton.setAttribute('data-storage', selectedStorage);
+                    whatsappButton.setAttribute('data-price', selectedPrice);
+                    
+                    // Update product price display
+                    const priceDisplay = parentCard.querySelector('.product-price');
+                    priceDisplay.textContent = `From ${selectedPrice}`;
+                    
+                    // Update selection summary
+                    updateSelectionSummary(parentCard);
+                });
+            });
+            
+            // Handle WhatsApp button clicks
+            const whatsappButtons = document.querySelectorAll('.whatsapp-button');
+            whatsappButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    const color = this.getAttribute('data-color');
+                    const storage = this.getAttribute('data-storage');
+                    const price = this.getAttribute('data-price');
+                    
+                    // Create WhatsApp message
+                    const message = `Hello Luxury iPhones admin! I would like to place an order for:\n\nProduct: ${product}\nColor: ${color}\nStorage: ${storage}\nPrice: ${price}\n\nPlease confirm availability and provide payment instructions.`;
+                    
+                    // Encode message for URL
+                    const encodedMessage = encodeURIComponent(message);
+                    
+                    // WhatsApp admin number (using a placeholder)
+                    const phoneNumber = "15551234567";
+                    
+                    // Open WhatsApp with pre-filled message
+                    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+                });
+            });
+            
+            // Function to update selection summary
+            function updateSelectionSummary(productCard) {
+                const productName = productCard.querySelector('.product-name').textContent;
+                const selectedColor = productCard.querySelector('.color-option.selected').getAttribute('data-color');
+                const selectedStorage = productCard.querySelector('.storage-option.selected').getAttribute('data-capacity');
+                const selectedPrice = productCard.querySelector('.storage-option.selected').getAttribute('data-price');
+                
+                // Determine which summary to update based on product
+                let summaryId = '';
+                if (productName.includes('15 Pro')) summaryId = 'summary-iphone15pro';
+                else if (productName.includes('14 Pro')) summaryId = 'summary-iphone14pro';
+                else if (productName.includes('13')) summaryId = 'summary-iphone13';
+                
+                const summaryElement = document.getElementById(summaryId);
+                
+                // Update summary content
+                summaryElement.innerHTML = `
+                    <div class="summary-item"><span class="summary-label">Selected:</span> ${productName}</div>
+                    <div class="summary-item"><span class="summary-label">Color:</span> ${selectedColor}</div>
+                    <div class="summary-item"><span class="summary-label">Storage:</span> ${selectedStorage}</div>
+                    <div class="summary-item"><span class="summary-label">Price:</span> ${selectedPrice}</div>
+                `;
+                
+                // Show the summary
+                summaryElement.classList.add('show');
+            }
+            
+            // Initialize selection summaries
+            document.querySelectorAll('.product-card').forEach(card => {
+                updateSelectionSummary(card);
+            });
+        });
+    </script>
+</body>
+</html>
