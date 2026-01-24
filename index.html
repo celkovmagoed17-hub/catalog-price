@@ -117,20 +117,23 @@
     <!-- Product -->
     <div class="product">
       <img src="https://macstore.id/wp-content/uploads/2021/12/iphone-13-select-2021.jpeg" alt="iPhone 15 Pro">
-      <h3>iPhone 13 </h3>
-      <div class="price">IDR 7,500,000</div>
+      <h3>iPhone 15 Pro</h3>
+      <div class="price">IDR 22,500,000</div>
       <div class="options">
         <select>
           <option>Choose Color</option>
           <option>Black Titanium</option>
           <option>White Titanium</option>
+          <option></option>
         </select>
         <select>
           <option>Choose Storage</option>
-          <option>128 GB</option>
+          <option>256 GB</option>
+          <option>512 GB</option>
+          <option>1 TB</option>
         </select>
       </div>
-      <button onclick="contactWA('iPhone 13')">Order via WhatsApp</button>
+      <button onclick="contactWA(this, 'iPhone 15 Pro')">Order via WhatsApp</button>
       <div class="note">*Payment hanya melalui WhatsApp</div>
     </div>
 
@@ -155,11 +158,13 @@
     <div class="product">
       <img src="https://macstore.id/wp-content/uploads/2021/12/iphone-13-select-2021.jpeg" alt="iPhone 13">
       <h3>iPhone 13</h3>
-      <div class="price">IDR 7,500,000</div>
+      <div class="price">IDR 12,500,000</div>
       <div class="options">
         <select>
           <option>Choose Color</option>
           <option>Midnight</option>
+          <option>Starlight</option>
+          <option>Blue</option>
         </select>
         <select>
           <option>Choose Storage</option>
@@ -167,7 +172,7 @@
           <option>256 GB</option>
         </select>
       </div>
-      <button onclick="contactWA('iPhone 13')">Order via WhatsApp</button>
+      <button onclick="contactWA(this, 'iPhone 13')">Order via WhatsApp</button>
       <div class="note">*Payment hanya melalui WhatsApp</div>
     </div>
   </div>
@@ -181,13 +186,40 @@
 </footer>
 
 <script>
-  function contactWA(product) {
-    const phone = '6287884250163'; // replace with admin WhatsApp number
-    const message = encodeURIComponent(`Hello Admin, I would like to order ${product}. Please confirm availability and payment details.`);
+  function contactWA(button, product) {
+    const productCard = button.closest('.product');
+    const selects = productCard.querySelectorAll('select');
+
+    const color = selects[0].value;
+    const storage = selects[1].value;
+
+    // Validasi pilihan
+    if (
+      color === "Choose Color" ||
+      storage === "Choose Storage"
+    ) {
+      alert("Silakan pilih warna dan storage terlebih dahulu.");
+      return;
+    }
+
+    const phone = '6287884250163'; // WhatsApp Admin
+    const message = encodeURIComponent(
+      `Hai Admin
+Saya ingin order produk berikut:
+
+ Produk : ${product}
+ Warna  : ${color}
+ Storage: ${storage}
+
+Mohon konfirmasi ketersediaan & detail pembayaran.
+Terima kasih `
+    );
+
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   }
 </script>
 
+
+
 </body>
 </html>
-
